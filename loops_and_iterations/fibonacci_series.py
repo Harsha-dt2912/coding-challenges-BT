@@ -14,3 +14,8 @@ a, b = 1, 1
 while a <= n:
     print(a, end=" ")
     a, b = b, a + b
+
+# upto n terms code
+# for _ in range(n):
+#     print(a, end=" ")
+#     a, b = b, a + b

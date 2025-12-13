@@ -17,7 +17,7 @@ while term <= n:
     term += increment
     increment += 1
 
-
+#upto n terms code
 # for _ in range(n):
 #     print(term, end=" ")
 #     term += increment

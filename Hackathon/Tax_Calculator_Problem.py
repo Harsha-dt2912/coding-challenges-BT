@@ -86,12 +86,12 @@ def gross_salary(basic, allowance, bonus_percent):
 
 # ---------------- CALCULATION taxable income ---------------- #
 
-def calculate_taxable_income(annual_gross):
+def taxable_income(annual_gross):
     return max(annual_gross - STANDARD_DEDUCTION, 0)
 
 # ---------------- CALCULATION tax ---------------- #
-def calculate_tax(taxable_income):
-    tax = 0
+
+def tax(taxable_income):
     slabs = [
         (300000, 0.00),
         (600000, 0.05),
@@ -101,22 +101,44 @@ def calculate_tax(taxable_income):
         (float('inf'), 0.30)
     ]
 
-    previous = 0
+    breakdown = []
+    tax = 0
+    previous_limit = 0
+
     for limit, rate in slabs:
-        if taxable_income > previous:
-            amount = min(taxable_income, limit) - previous
-            tax += amount * rate
-            previous = limit
+        if taxable_income > previous_limit:
+            taxable_amount = min(taxable_income, limit) - previous_limit
+            slab_tax = taxable_amount * rate
+
+            breakdown.append({
+                "range": f"{previous_limit + 1} - {int(limit)}",
+                "rate": rate,
+                "amount": taxable_amount,
+                "tax": slab_tax
+            })
+
+            tax += slab_tax
+            previous_limit = limit
         else:
             break
 
-    # Section 87A rebate
+    # Section 87A Rebate
+    rebate_applied = False
     if taxable_income <= 700000:
         tax = 0
-    # health and education cess 4%
+        rebate_applied = True
+    #health and education cess
     cess = tax * 0.04
     total_tax = tax + cess
-    return tax, cess, total_tax
+
+    return {
+        "slab_breakdown": breakdown,
+        "tax_before_cess": tax,
+        "rebate_applied": rebate_applied,
+        "cess": cess,
+        "total_tax": total_tax
+    }
+
 
 
 
@@ -164,21 +186,43 @@ print(f"Annual Gross Salary  : ₹{annual_gross:.2f}")
 
 
 
-taxable_income = calculate_taxable_income(annual_gross)
+taxable_income = taxable_income(annual_gross)
 
 print("\n--- Taxable Income Calculation ---")
 print(f"Standard Deduction : ₹50,000")
 print(f"Taxable Income     : ₹{taxable_income:.2f}")
 
 
-tax, cess, total_tax = calculate_tax(taxable_income)
+result = tax(taxable_income)
 
-print("\n--- Tax Calculation ---")
-print(f"Tax        : ₹{tax:.2f}")
-print(f"Cess (4%)  : ₹{cess:.2f}")
-print(f"Total Tax  : ₹{total_tax:.2f}")
+print("\n--- Tax Breakdown ---")
+print("-" * 75)
+print(f"{'Slab Range':<20}{'Rate (%)':<12}{'Taxable Amt (₹)':<20}{'Tax (₹)':<15}")
+print("-" * 75)
+
+for slab in result["slab_breakdown"]:
+    print(
+        f"{slab['range']:<20}"
+        f"{int(slab['rate'] * 100):<12}"
+        f"{slab['amount']:<20.0f}"
+        f"{slab['tax']:<15.2f}"
+    )
+
+print("-" * 75)
 
 
+print(f"\nTax before cess : ₹{result['tax_before_cess']:.2f}")
+
+if result["rebate_applied"]:
+    print("Section 87A Rebate Applied → Tax = ₹0")
+
+print(f"Cess (4%)       : ₹{result['cess']:.2f}")
+print(f"Total Tax Payable: ₹{result['total_tax']:.2f}")
+
+
+
+
+total_tax = result["total_tax"]
 net_salary = annual_gross - total_tax
 
 print("\n--- Net Salary ---")

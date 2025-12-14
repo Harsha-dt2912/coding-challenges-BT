@@ -53,3 +53,20 @@ if member == 'y':
 print(f"Grand Total after Membership Discount: ₹{grand_total:.2f}")
 
 
+# Tax Calculation
+
+if grand_total < 5000:
+    tax_rate = 0.05
+elif grand_total <= 20000:
+    tax_rate = 0.10
+else:
+    tax_rate = 0.15
+
+tax = grand_total * tax_rate
+grand_total += tax
+
+print(f"Tax Applied ({int(tax_rate*100)}%): ₹{tax:.2f}")
+print(f"Grand Total after Tax: ₹{grand_total:.2f}")
+
+
+

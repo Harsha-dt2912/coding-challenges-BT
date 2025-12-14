@@ -1,4 +1,3 @@
-# Challenge 26: Multiple Items and Grand Total
 
 items = []
 grand_total = 0
@@ -24,7 +23,7 @@ while True:
 print(f"\nGrand Total: ₹{grand_total:.2f}")
 
 
-# Challenge 27: Discounts
+#  Discounts
 
 discount = 0
 
@@ -40,4 +39,17 @@ if total_quantity > 20:
     print(f"5% Quantity Discount Applied: ₹{qty_discount:.2f}")
 
 print(f"Grand Total after Discounts: ₹{grand_total:.2f}")
+
+
+#  Membership Discount
+
+member = input("\nis he/she a member? (y/n): ").lower()
+
+if member == 'y':
+    member_discount = grand_total * 0.02
+    grand_total -= member_discount
+    print(f"Membership Discount (2%): ₹{member_discount:.2f}")
+
+print(f"Grand Total after Membership Discount: ₹{grand_total:.2f}")
+
 

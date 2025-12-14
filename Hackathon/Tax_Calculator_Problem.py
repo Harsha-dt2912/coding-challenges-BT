@@ -1,6 +1,7 @@
 import re
 
 MAX_SALARY = 10_000_000  # ₹1,00,00,000
+STANDARD_DEDUCTION = 50_000  # ₹50,000
 
 
 # ---------------- VALIDATION FUNCTIONS ---------------- #
@@ -83,6 +84,10 @@ def gross_salary(basic, allowance, bonus_percent):
     annual_gross = (gross_monthly * 12) + annual_bonus
     return gross_monthly, annual_gross
 
+# ---------------- CALCULATION taxable income ---------------- #
+
+def calculate_taxable_income(annual_gross):
+    return max(annual_gross - STANDARD_DEDUCTION, 0)
 
 # ---------------- MAIN (INPUT ONLY) ---------------- #
 
@@ -109,3 +114,11 @@ gross_monthly, annual_gross = gross_salary(
 print("\n---Gross Salary Details ---")
 print(f"Gross Monthly Salary : ₹{gross_monthly:.2f}")
 print(f"Annual Gross Salary  : ₹{annual_gross:.2f}")
+
+
+
+taxable_income = calculate_taxable_income(annual_gross)
+
+print("\n--- Taxable Income Calculation ---")
+print(f"Standard Deduction : ₹50,000")
+print(f"Taxable Income     : ₹{taxable_income:.2f}")

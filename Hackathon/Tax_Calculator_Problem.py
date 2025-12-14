@@ -118,6 +118,24 @@ def calculate_tax(taxable_income):
     total_tax = tax + cess
     return tax, cess, total_tax
 
+
+
+# ---------------- REPORT GENERATION ---------------- #
+def generate_report():
+    print("\n========== Employee Tax Report ==========")
+    print(f"Name               : {name}")
+    print(f"Employee ID        : {emp_id}")
+    print(f"Gross Monthly Pay  : ₹{gross_monthly:.2f}")
+    print(f"Annual Gross Pay   : ₹{annual_gross:.2f}")
+    print(f"Taxable Income     : ₹{taxable_income:.2f}")
+    print(f"Tax Payable        : ₹{total_tax:.2f}")
+    print(f"Annual Net Salary  : ₹{net_salary:.2f}")
+    print("========================================")
+
+
+
+
+
 # ---------------- MAIN (INPUT ONLY) ---------------- #
 
 if __name__ == "__main__":
@@ -161,3 +179,11 @@ print(f"Cess (4%)  : ₹{cess:.2f}")
 print(f"Total Tax  : ₹{total_tax:.2f}")
 
 
+net_salary = annual_gross - total_tax
+
+print("\n--- Net Salary ---")
+print(f"Annual Net Salary : ₹{net_salary:.2f}")
+print(f"Monthly Net Salary: ₹{net_salary / 12:.2f}\n")
+
+
+generate_report()

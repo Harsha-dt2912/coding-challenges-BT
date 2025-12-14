@@ -114,6 +114,17 @@ print(f"Final Payable Amount: ₹{grand_total:.2f}")
 
 
 
+# Minimum Purchase Requirement
+
+if grand_total < 500:
+    print("❌ Minimum purchase amount ₹500 not met. Invoice cannot be generated.")
+    exit()
+
+#  Loyalty Points
+
+loyalty_points = int(grand_total // 100)
+
+print(f"\nLoyalty Points Earned: {loyalty_points}")
 
 
 

@@ -50,7 +50,7 @@ print(f"Grand Total after Discounts: ₹{grand_total:.2f}")
 
 #  Membership Discount
 
-member = input("\nis he/she a member? (y/n): ").lower()
+member = input("\n are you a member? (y/n): ").lower()
 
 if member == 'y':
     member_discount = grand_total * 0.02
@@ -98,6 +98,21 @@ else:
     print("\nNo Promotional Discount Applied")
 
 print(f"Grand Total after Promo Discount: ₹{grand_total:.2f}")
+
+#  Payment Mode 
+
+payment_mode = input("\nSelect Payment Mode (cash/card): ").lower()
+
+if payment_mode == "card":
+    surcharge = grand_total * 0.02
+    grand_total += surcharge
+    print(f"Credit Card Surcharge (2%): ₹{surcharge:.2f}")
+else:
+    print("No surcharge for cash payment")
+
+print(f"Final Payable Amount: ₹{grand_total:.2f}")
+
+
 
 
 

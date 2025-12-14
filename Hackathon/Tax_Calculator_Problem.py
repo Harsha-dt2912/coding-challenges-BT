@@ -89,6 +89,35 @@ def gross_salary(basic, allowance, bonus_percent):
 def calculate_taxable_income(annual_gross):
     return max(annual_gross - STANDARD_DEDUCTION, 0)
 
+# ---------------- CALCULATION tax ---------------- #
+def calculate_tax(taxable_income):
+    tax = 0
+    slabs = [
+        (300000, 0.00),
+        (600000, 0.05),
+        (900000, 0.10),
+        (1200000, 0.15),
+        (1500000, 0.20),
+        (float('inf'), 0.30)
+    ]
+
+    previous = 0
+    for limit, rate in slabs:
+        if taxable_income > previous:
+            amount = min(taxable_income, limit) - previous
+            tax += amount * rate
+            previous = limit
+        else:
+            break
+
+    # Section 87A rebate
+    if taxable_income <= 700000:
+        tax = 0
+    # health and education cess 4%
+    cess = tax * 0.04
+    total_tax = tax + cess
+    return tax, cess, total_tax
+
 # ---------------- MAIN (INPUT ONLY) ---------------- #
 
 if __name__ == "__main__":
@@ -122,3 +151,13 @@ taxable_income = calculate_taxable_income(annual_gross)
 print("\n--- Taxable Income Calculation ---")
 print(f"Standard Deduction : ₹50,000")
 print(f"Taxable Income     : ₹{taxable_income:.2f}")
+
+
+tax, cess, total_tax = calculate_tax(taxable_income)
+
+print("\n--- Tax Calculation ---")
+print(f"Tax        : ₹{tax:.2f}")
+print(f"Cess (4%)  : ₹{cess:.2f}")
+print(f"Total Tax  : ₹{total_tax:.2f}")
+
+

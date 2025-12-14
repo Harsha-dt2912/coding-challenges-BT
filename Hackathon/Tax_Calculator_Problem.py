@@ -75,6 +75,14 @@ def get_valid_bonus_percentage():
         except ValueError:
             print("❌ Enter a valid numeric bonus percentage.")
 
+# ---------------- CALCULATION gross salary ---------------- #
+
+def gross_salary(basic, allowance, bonus_percent):
+    gross_monthly = basic + allowance
+    annual_bonus = (gross_monthly * 12) * (bonus_percent / 100)
+    annual_gross = (gross_monthly * 12) + annual_bonus
+    return gross_monthly, annual_gross
+
 
 # ---------------- MAIN (INPUT ONLY) ---------------- #
 
@@ -93,3 +101,11 @@ if __name__ == "__main__":
     print(f"Basic Salary       : ₹{basic_salary:.2f}")
     print(f"Special Allowance  : ₹{special_allowance:.2f}")
     print(f"Bonus Percentage   : {bonus_percentage}%")
+
+
+gross_monthly, annual_gross = gross_salary(
+    basic_salary, special_allowance, bonus_percentage)
+
+print("\n---Gross Salary Details ---")
+print(f"Gross Monthly Salary : ₹{gross_monthly:.2f}")
+print(f"Annual Gross Salary  : ₹{annual_gross:.2f}")

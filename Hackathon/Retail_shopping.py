@@ -13,7 +13,14 @@ while True:
     item_total = quantity * price
     print(f"Item Total: ₹{item_total:.2f}")
 
-    items.append(item_total)
+    items.append({
+    "code": item_code,
+    "desc": description,
+    "qty": quantity,
+    "price": price,
+    "total": item_total
+})
+
     grand_total += item_total
 
     choice = input("Add another item? (y/n): ").lower()
@@ -67,6 +74,31 @@ grand_total += tax
 
 print(f"Tax Applied ({int(tax_rate*100)}%): ₹{tax:.2f}")
 print(f"Grand Total after Tax: ₹{grand_total:.2f}")
+
+#  Promotional Discount on Specific Items
+
+PROMO_CODE = "PROMO10"
+promo_discount = 0
+promo_items = []   # to store descriptions of promo items
+
+for item in items:
+    if item["code"] == PROMO_CODE:
+        discount = item["total"] * 0.10
+        item["total"] -= discount
+        promo_discount += discount
+        promo_items.append(item["desc"])
+
+# Recalculate grand total
+grand_total = sum(item["total"] for item in items)
+
+if promo_discount > 0:
+    print(f"\nPromotional Discount Applied on Item(s): {', '.join(promo_items)}")
+    print(f"Total Promotional Discount: ₹{promo_discount:.2f}")
+else:
+    print("\nNo Promotional Discount Applied")
+
+print(f"Grand Total after Promo Discount: ₹{grand_total:.2f}")
+
 
 
 

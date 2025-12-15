@@ -110,8 +110,13 @@ def tax(taxable_income):
             taxable_amount = min(taxable_income, limit) - previous_limit
             slab_tax = taxable_amount * rate
 
+            if limit == float('inf'):
+                slab_range = f"Above {previous_limit}"
+            else:
+                slab_range = f"{previous_limit + 1} - {int(limit)}"
+
             breakdown.append({
-                "range": f"{previous_limit + 1} - {int(limit)}",
+                "range": slab_range,
                 "rate": rate,
                 "amount": taxable_amount,
                 "tax": slab_tax
@@ -161,7 +166,7 @@ def generate_report():
 # ---------------- MAIN (INPUT ONLY) ---------------- #
 
 if __name__ == "__main__":
-    print("\n=== Employee Input & Validation ===\n")
+    print("\n=== Employee Salary Detials ===\n")
 
     name = get_valid_name()
     emp_id = get_valid_emp_id()
@@ -227,7 +232,7 @@ net_salary = annual_gross - total_tax
 
 print("\n--- Net Salary ---")
 print(f"Annual Net Salary : ₹{net_salary:.2f}")
-print(f"Monthly Net Salary: ₹{net_salary / 12:.2f}\n")
+# print(f"Monthly Net Salary: ₹{net_salary / 12:.2f}\n")
 
 
 generate_report()

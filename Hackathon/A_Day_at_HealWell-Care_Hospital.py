@@ -54,7 +54,7 @@ def get_valid_contact():
         print("❌ Contact must be a valid 10-digit number.")
 
 
-#  Admin sets services of the day
+# -------- Admin sets services of the day----------
 services = [
     "General Consultation",
     "Blood Test",
@@ -66,7 +66,7 @@ services = [
 
 costs = [500, 300, 800, 1500, 4000, 7000]
 
-# Patient Details
+# ----------Patient Details---------------
 
 name = get_valid_patient_name()
 age = get_valid_age()
@@ -74,7 +74,7 @@ gender = get_valid_gender()
 contact = get_valid_contact()
 
 
-# service selection
+# -----------service selection-----------------
 
 print("\nAvailable Services:")
 for i, service in enumerate(services, start=1):
@@ -119,7 +119,7 @@ while True:
     except ValueError:
         print("❌ Invalid selection. Please enter valid service numbers.")
 
-# Fetching Costs of Selected Services
+# -----Fetching Costs of Selected Services-------
 
 selected_costs = []
 
@@ -134,4 +134,38 @@ for service in selected_services:
 print("\nSelected Services and Costs:")
 for i in range(len(selected_services)):
     print(f"{i+1}. {selected_services[i]} - ₹{selected_costs[i]}")
+
+#  Calculating Total Cost
+
+subtotal = sum(selected_costs)
+print(f"\nTotal Cost (Before Tax): ₹{subtotal}")
+
+# --------Apply Discounts---------
+
+discount = 0
+
+# Senior Citizen Discount
+if age >= 60:
+    senior_discount = subtotal * 0.10
+    discount += senior_discount
+    print(f"Senior Citizen Discount (10%): ₹{senior_discount:.2f}")
+
+# High Bill Discount
+if subtotal > 5000:
+    high_bill_discount = (subtotal - discount) * 0.05
+    discount += high_bill_discount
+    print(f"High Bill Discount (5%): ₹{high_bill_discount:.2f}")
+
+discounted_subtotal = subtotal - discount
+print(f"Subtotal after Discounts: ₹{discounted_subtotal:.2f}")
+
+# Applying GST 
+
+GST_RATE = 0.18
+gst_amount = discounted_subtotal * GST_RATE
+grand_total = discounted_subtotal + gst_amount
+
+print(f"GST (18%): ₹{gst_amount:.2f}")
+print(f"Grand Total: ₹{grand_total:.2f}")
+
 

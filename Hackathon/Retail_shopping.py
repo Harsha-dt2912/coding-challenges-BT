@@ -4,11 +4,38 @@ grand_total = 0
 total_quantity = 0
 
 while True:
-    item_code = input("\nEnter Item Code: ")
-    description = input("Enter Item Description: ")
-    quantity = int(input("Enter Quantity: "))
-    total_quantity += quantity
-    price = float(input("Enter Price per Item: "))
+    while True:
+        item_code = input("\nEnter Item Code: ").strip()
+        if item_code:
+            break
+        print("❌ Item code cannot be empty.")
+
+    while True:
+        description = input("Enter Item Description: ").strip()
+        if description:
+            break
+        print("❌ Item description cannot be empty.")
+
+    while True:
+        try:
+            quantity = int(input("Enter Quantity: "))
+            if quantity > 0:
+                total_quantity += quantity
+                break
+            print("❌ Quantity must be greater than 0.")
+        except ValueError:
+            print("❌ Enter a valid integer quantity.")
+
+
+    while True:
+        try:
+            price = float(input("Enter Price per Item: "))
+            if price > 0:
+                break
+            print("❌ Price must be greater than 0.")
+        except ValueError:
+            print("❌ Enter a valid numeric price.")
+
 
     item_total = quantity * price
     print(f"Item Total: ₹{item_total:.2f}")
@@ -23,8 +50,13 @@ while True:
 })
 
     grand_total += item_total
+    while True:
+        choice = input("Add another item? (y/n): ").lower()
+        if choice in ['y', 'n']:
+            break
+        print("❌ Enter y or n only.")
 
-    choice = input("Add another item? (y/n): ").lower()
+    
     if choice != 'y':
         break
 
@@ -78,7 +110,12 @@ print(f"Grand Total after Discounts: ₹{grand_total:.2f}")
 
 #  Membership Discount
 
-member = input("\n are you a member? (y/n): ").lower()
+while True:
+    member = input("\nAre you a member? (y/n): ").lower()
+    if member in ['y', 'n']:
+        break
+    print("❌ Enter y or n only.")
+
 member_discount=0
 if member == 'y':
     member_discount = grand_total * 0.02
@@ -107,7 +144,12 @@ print(f"Grand Total after Tax: ₹{grand_total:.2f}")
 
 #  Payment Mode 
 
-payment_mode = input("\nSelect Payment Mode (cash/card): ").lower()
+while True:
+    payment_mode = input("\nSelect Payment Mode (cash/card): ").lower()
+    if payment_mode in ['cash', 'card']:
+        break
+    print("❌ Please select 'cash' or 'card'.")
+
 
 if payment_mode == "card":
     surcharge = grand_total * 0.02

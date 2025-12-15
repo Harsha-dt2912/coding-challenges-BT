@@ -143,7 +143,8 @@ print(f"\nTotal Cost (Before Tax): ₹{subtotal}")
 # --------Apply Discounts---------
 
 discount = 0
-
+senior_discount=0
+high_bill_discount=0
 # Senior Citizen Discount
 if age >= 60:
     senior_discount = subtotal * 0.10
@@ -169,3 +170,56 @@ print(f"GST (18%): ₹{gst_amount:.2f}")
 print(f"Grand Total: ₹{grand_total:.2f}")
 
 
+#  -----------Invoice Generation-----------------
+
+
+print("\n" + "-" * 60)
+print("              HealWell Care Hospital")
+print("                  Patient Invoice")
+print("-" * 60)
+
+# ---- Patient Info ----
+print("Patient Information")
+print("-" * 60)
+print(f"Name    : {name}")
+print(f"Age     : {age}")
+print(f"Gender  : {gender}")
+print(f"Contact : {contact}")
+
+# ---- Services Table ----
+print("\nServices Availed")
+print("-" * 60)
+print(f"{'No.':<5}{'Service':<30}{'Cost (₹)':>10}")
+print("-" * 60)
+
+for i in range(len(selected_services)):
+    print(f"{i+1:<5}{selected_services[i]:<30}{selected_costs[i]:>10}")
+
+print("-" * 60)
+
+# ---- Billing Summary ----
+print("Billing Summary")
+print("-" * 60)
+print(f"{'Subtotal':<40} ₹{subtotal:>8.2f}")
+
+# Discounts
+if discount > 0:
+    print("Discounts Applied:")
+    if senior_discount > 0:
+        print(f"{'Senior Citizen Discount (10%)':<40}-₹ {senior_discount:>7.2f}")
+    if high_bill_discount > 0:
+        print(f"{'High Bill Discount (5%)':<40}-₹ {high_bill_discount:>7.2f}")
+
+    print(f"{'Total Discount':<40}-₹ {discount:>7.2f}")
+    print(f"{'Subtotal After Discount':<40} ₹ {discounted_subtotal:>8.2f}")
+else:
+    print(f"{'Discounts not Applied':<40} ₹ 0.00")
+
+# GST & Total
+print(f"{'GST (18%)':<40} ₹ {gst_amount:>8.2f}")
+print("-" * 60)
+print(f"{'GRAND TOTAL':<40} ₹ {grand_total:>8.2f}")
+
+print("-" * 60)
+print("Thank you for choosing HealWell Care Hospital!")
+print("-" * 60)

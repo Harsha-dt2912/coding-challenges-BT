@@ -91,13 +91,13 @@ print(f"Grand Total after Promo Discount: ₹{grand_total:.2f}")
 
 #  Discounts
 
-discount = 0
+max_purchase_discount = 0
 
 if grand_total > 10000:
-    discount = grand_total * 0.10
+    max_purchase_discount = grand_total * 0.10
     print(f"10% Discount Applied: ₹{discount:.2f}")
 
-grand_total -= discount
+grand_total -= max_purchase_discount
 
 qty_discount=0
 if total_quantity > 20:
@@ -215,9 +215,9 @@ if promo_discount > 0:
     print(f"{'Promotional Discount on PROMO10 (10%)':<50}- ₹{promo_discount:.2f}")
     total_discounts += promo_discount
 
-if discount > 0:
-    print(f"{'Spent >10000 (10%)':<50}- ₹{discount:.2f}")
-    total_discounts += discount
+if max_purchase_discount > 0:
+    print(f"{'Spent >10000 (10%)':<50}- ₹{max_purchase_discount:.2f}")
+    total_discounts += max_purchase_discount
 
 if  qty_discount > 0:
     print(f"{'Quantity purchase > 20 (5%)':<50}- ₹{qty_discount:.2f}")

@@ -6,6 +6,7 @@ def get_marks(subject):
                 return marks
             else:
                 print("Marks should be between 0 and 100.")
+                continue
         except ValueError:
             print("Invalid input! Please enter numeric marks.")
 

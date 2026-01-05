@@ -33,7 +33,7 @@ def get_valid_name():
         name = input("Enter Employee Name: ").strip()
         if validate_name(name):
             return name
-        print("❌ Invalid Name! Alphabets only, max 50 characters.")
+        print(" Invalid Name! Alphabets only, max 50 characters.")
 
 
 def get_valid_emp_id():
@@ -41,7 +41,7 @@ def get_valid_emp_id():
         emp_id = input("Enter Employee ID: ").strip()
         if validate_emp_id(emp_id):
             return emp_id
-        print("❌ Invalid EmpID! Alphanumeric, 5–10 characters.")
+        print(" Invalid EmpID! Alphanumeric, 5–10 characters.")
 
 
 def get_valid_basic_salary():
@@ -50,9 +50,9 @@ def get_valid_basic_salary():
             salary = float(input("Enter Basic Monthly Salary: "))
             if validate_basic_salary(salary):
                 return salary
-            print("❌ Salary must be > 0 and ≤ ₹1,00,00,000.")
+            print(" Salary must be > 0 and ≤ ₹1,00,00,000.")
         except ValueError:
-            print("❌ Enter a valid numeric salary.")
+            print(" Enter a valid numeric salary.")
 
 
 def get_valid_special_allowance():
@@ -61,9 +61,9 @@ def get_valid_special_allowance():
             allowance = float(input("Enter Special Allowances (Monthly): "))
             if validate_special_allowance(allowance):
                 return allowance
-            print("❌ Allowance must be ≥ 0 and ≤ ₹1,00,00,000.")
+            print("Allowance must be ≥ 0 and ≤ ₹1,00,00,000.")
         except ValueError:
-            print("❌ Enter a valid numeric allowance.")
+            print("Enter a valid numeric allowance.")
 
 
 def get_valid_bonus_percentage():
@@ -72,9 +72,9 @@ def get_valid_bonus_percentage():
             bonus = float(input("Enter Bonus Percentage (0–100): "))
             if validate_bonus_percentage(bonus):
                 return bonus
-            print("❌ Bonus must be between 0 and 100.")
+            print("Bonus must be between 0 and 100.")
         except ValueError:
-            print("❌ Enter a valid numeric bonus percentage.")
+            print("Enter a valid numeric bonus percentage.")
 
 # ---------------- CALCULATION gross salary ---------------- #
 
@@ -148,6 +148,7 @@ def tax(taxable_income):
 
 
 # ---------------- REPORT GENERATION ---------------- #
+
 def generate_report():
     print("\n========== Employee Tax Report ==========")
     print(f"Name               : {name}")
@@ -163,7 +164,7 @@ def generate_report():
 
 
 
-# ---------------- MAIN (INPUT ONLY) ---------------- #
+# ---------------- MAIN  ---------------- #
 
 if __name__ == "__main__":
     print("\n=== Employee Salary Detials ===\n")
@@ -174,14 +175,14 @@ if __name__ == "__main__":
     special_allowance = get_valid_special_allowance()
     bonus_percentage = get_valid_bonus_percentage()
 
-    print("\n✅ Employee salary details!")
+    print("\n Employee salary details!")
     print(f"Name               : {name}")
     print(f"Employee ID        : {emp_id}")
     print(f"Basic Salary       : ₹{basic_salary:.2f}")
     print(f"Special Allowance  : ₹{special_allowance:.2f}")
     print(f"Bonus Percentage   : {bonus_percentage}%")
 
-
+# ------------------------------------------------------------------- #
 gross_monthly, annual_gross = gross_salary(
     basic_salary, special_allowance, bonus_percentage)
 
@@ -189,7 +190,7 @@ print("\n---Gross Salary Details ---")
 print(f"Gross Monthly Salary : ₹{gross_monthly:.2f}")
 print(f"Annual Gross Salary  : ₹{annual_gross:.2f}")
 
-
+# ------------------------------------------------------------ #
 
 taxable_income = taxable_income(annual_gross)
 
@@ -197,7 +198,7 @@ print("\n--- Taxable Income Calculation ---")
 print(f"Standard Deduction : ₹50,000")
 print(f"Taxable Income     : ₹{taxable_income:.2f}")
 
-
+# ------------------------------------------------------------- #
 result = tax(taxable_income)
 
 print("\n--- Tax Breakdown ---")
@@ -224,8 +225,7 @@ if result["rebate_applied"]:
 print(f"Cess (4%)       : ₹{result['cess']:.2f}")
 print(f"Total Tax Payable: ₹{result['total_tax']:.2f}")
 
-
-
+# -------------------------------------------------------------- #
 
 total_tax = result["total_tax"]
 net_salary = annual_gross - total_tax
